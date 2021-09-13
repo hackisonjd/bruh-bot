@@ -30,7 +30,6 @@ class Bruh:
   
   def add_events(self):
     self.bot.event(self.on_ready)
-    self.bot.event(self.on_message)
 
   async def on_ready(self):
     await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game("cave1.ogg"))
