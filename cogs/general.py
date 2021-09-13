@@ -2,6 +2,8 @@ from discord.ext import commands
 import random
 import discord
 import datetime
+import requests
+import json
 
 class General(commands.Cog):
   #general use commands
@@ -44,6 +46,23 @@ class General(commands.Cog):
     )
     embed.set_thumbnail(url="https://www.vermontcountrystore.com/ccstore/v1/images/?source=/file/v436715391556442924/products/51327.main.png&height=300&width=300")
     await ctx.send(embed=embed)
+
+  @commands.command(name='insult', brief="Generates an insult")
+  async def get_insult(self, ctx):
+    resp = requests.get("https://evilinsult.com/generate_insult.php?lang=en&type=json")
+    json_data = json.loads(resp.text)
+    ins = json_data['insult']
+
+    embed = discord.Embed(
+      title = f"{ctx.author.display_name}'s randomly generated roasting",
+      description=f"{ins}",
+      timestamp=datetime.datetime.utcnow(),
+      color=discord.Color.red()
+    )
+
+    await ctx.send(embed=embed)
+
+    
     
 
   
